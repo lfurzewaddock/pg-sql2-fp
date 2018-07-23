@@ -1,0 +1,5 @@
+# Webpack compiled bundle directory
+lib/*
+
+# Node Modules
+node_modules/*
