@@ -1,6 +1,5 @@
 import test from "tape";
 import * as sql from "../src";
-// import query from "./query";
 
 test("sql", (t) => {
   t.test("value", (assert) => {
@@ -393,15 +392,6 @@ test("sql", (t) => {
     const actual = sql.compile(node);
 
     assert.deepEqual(actual, expected, message);
-
-    assert.end();
-  });
-  t.test("compile (with empty identifier)", (assert) => {
-    const message = "throws an error complaining that a non-empty array was expected";
-
-    assert.throws(function throwsFn() {
-      sql.query`${sql.identifier()}`; /* eslint-disable-line no-unused-expressions */
-    }, /(Error: Expected non-empty array)/, message);
 
     assert.end();
   });
