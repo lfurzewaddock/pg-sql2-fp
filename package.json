@@ -18,7 +18,7 @@
     "lint": "prettier-eslint \"*/**/*.js\" --log-level info",
     "lintFix": "prettier-eslint  \"*/**/*.js\" --write --log-level warn",
     "coverage": "node_modules/nyc/bin/nyc.js --require esm --reporter=html npm test && ./bin/opn-cli coverage/index.html -- chrome",
-    "coveralls": "node_modules/nyc/bin/nyc.js --require esm --reporter=text-lcov npm test | coveralls",
+    "coveralls": "node_modules/nyc/bin/nyc.js report --reporter=text-lcov --require esm npm test | coveralls",
     "prepack": "babel --out-dir lib src"
   },
   "repository": {
