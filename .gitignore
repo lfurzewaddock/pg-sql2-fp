@@ -13,3 +13,6 @@ dist
 
 # Apple MAC hidden files
 .DS_Store
+
+# coveralls config file
+.coveralls.yml

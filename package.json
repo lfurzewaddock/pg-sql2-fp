@@ -18,6 +18,7 @@
     "lint": "prettier-eslint \"*/**/*.js\" --log-level info",
     "lintFix": "prettier-eslint  \"*/**/*.js\" --write --log-level warn",
     "coverage": "node_modules/nyc/bin/nyc.js --require esm --reporter=html npm test && ./bin/opn-cli coverage/index.html -- chrome",
+    "coveralls": "node_modules/nyc/bin/nyc.js --require esm report --reporter=text-lcov npm test | coveralls",
     "prepack": "babel --out-dir lib src"
   },
   "repository": {
@@ -44,6 +45,7 @@
     "babel-preset-env": "^1.6.1",
     "clean-webpack-plugin": "^0.1.19",
     "copy-webpack-plugin": "^4.5.1",
+    "coveralls": "^3.0.2",
     "eslint": "^4.18.1",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-loader": "^2.0.0",
