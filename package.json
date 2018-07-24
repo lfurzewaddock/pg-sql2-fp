@@ -17,8 +17,9 @@
     "prodBuild": "webpack --config webpack/prod",
     "lint": "prettier-eslint \"*/**/*.js\" --log-level info",
     "lintFix": "prettier-eslint  \"*/**/*.js\" --write --log-level warn",
-    "coverage": "node_modules/nyc/bin/nyc.js --require esm --reporter=html npm test && ./bin/opn-cli coverage/index.html -- chrome",
-    "coveralls": "node_modules/nyc/bin/nyc.js report --reporter=text-lcov --require esm npm test | coveralls",
+    "coverage": "node_modules/nyc/bin/nyc.js --require esm npm test",
+    "coverReport": "npm run coverage && node_modules/nyc/bin/nyc.js report --reporter=html && ./bin/opn-cli coverage/index.html -- chrome",
+    "coveralls": "npm run coverage && node_modules/nyc/bin/nyc.js report --reporter=lcovonly | coveralls",
     "prepack": "babel --out-dir lib src"
   },
   "repository": {
