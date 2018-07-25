@@ -64,37 +64,6 @@ test("sql", (t) => {
 
     assert.end();
   });
-  t.test("raw", (assert) => {
-    const message = "should be a function";
-    const expected = "function";
-    const actual = typeof sql.raw;
-
-    assert.equal(actual, expected, message);
-
-    assert.end();
-  });
-  t.test("raw (integer argument)", (assert) => {
-    const node = sql.query`${sql.raw(1)}`;
-
-    const message = "should return a SQL node (type 'RAW') with text property set to first argument";
-    const expected = [{ type: "RAW", text: "1" }];
-    const actual = node;
-
-    assert.deepEqual(actual, expected, message);
-
-    assert.end();
-  });
-  t.test("raw (NO ARGUMENT)", (assert) => {
-    const node = sql.query`${sql.raw()}`;
-
-    const message = "should return a SQL node (type 'RAW') with empty text property";
-    const expected = [{ type: "RAW", text: "" }];
-    const actual = node;
-
-    assert.deepEqual(actual, expected, message);
-
-    assert.end();
-  });
   t.test("query", (assert) => {
     const message = "should be a function";
     const expected = "function";
