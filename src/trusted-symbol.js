@@ -1,3 +1,5 @@
+const $$trusted = Symbol("trusted");
+
 export default function trustedSymbol() {
-  return Symbol.for("trusted");
+  return $$trusted;
 }
