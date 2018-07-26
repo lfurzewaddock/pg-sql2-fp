@@ -1,24 +1,6 @@
 import debugError from "./debug-error";
 import enforceValidNode from "./enforce-valid-node";
-
-// Copied from https://github.com/brianc/node-postgres/blob/860cccd53105f7bc32fed8b1de69805f0ecd12eb/lib/client.js#L285-L302
-// Ported from PostgreSQL 9.2.4 source code in src/interfaces/libpq/fe-exec.c
-function escapeSqlIdentifier(str) {
-  var escaped = '"'; /* eslint-disable-line quotes */
-
-  for (let i = 0, l = str.length; i < l; i += 1) {
-    const c = str[i];
-    if (c === '"') { /* eslint-disable-line quotes */
-      escaped += c + c;
-    } else {
-      escaped += c;
-    }
-  }
-
-  escaped += '"'; /* eslint-disable-line quotes */
-
-  return escaped;
-}
+import escapeSqlIdentifier from "./escape-sql-identifier";
 
 function handleIdentifier(names) {
   // When we come accross a symbol in our identifier, we create a unique
