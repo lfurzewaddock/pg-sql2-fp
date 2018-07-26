@@ -20,6 +20,17 @@ test("escapeSqlIdentifier", (t) => {
 
     assert.end();
   });
+  t.test("invoke escapeSqlIdentifier with empty string as 1st argument", (assert) => {
+    const node = escapeSqlIdentifier("");
+
+    const message = "should return empty string";
+    const expected = ""; /* eslint-disable-line quotes */
+    const actual = node;
+
+    assert.deepEqual(actual, expected, message);
+
+    assert.end();
+  });
   t.test("invoke escapeSqlIdentifier with single name as 1st argument", (assert) => {
     const node = escapeSqlIdentifier("TableName");
 
