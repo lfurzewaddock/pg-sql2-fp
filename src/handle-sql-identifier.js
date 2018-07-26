@@ -2,6 +2,9 @@ import debugError from "./debug-error";
 import escapeSqlIdentifier from "./escape-sql-identifier";
 
 export default function handleSqlIdentifier(names) {
+  if (!Array.isArray(names) || names.length < 1) {
+    throw debugError(new Error("Expected non-empty array"));
+  }
   // When we come accross a symbol in our identifier, we create a unique
   // alias for it that shouldn’t be in the users schema. This helps maintain
   // sanity when constructing large Sql queries with many aliases.
