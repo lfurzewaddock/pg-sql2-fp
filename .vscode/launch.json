@@ -8,6 +8,7 @@
       "type": "node",
       "request": "attach",
       "name": "Attach to Remote",
+      "sourceMaps": false,
       "address": "localhost",
       "port": 5858,
       "localRoot": "${workspaceFolder}",
