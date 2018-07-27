@@ -4,7 +4,7 @@ import raw from "./raw";
 import value from "./value";
 import literal from "./literal";
 import query from "./query";
-import identifier from "./identfier";
+import identifier from "./identifier";
 import join from "./join";
 import compile from "./compile";
 
