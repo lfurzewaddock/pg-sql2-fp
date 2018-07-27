@@ -22,48 +22,6 @@ test("sql", (t) => {
 
     assert.end();
   });
-  t.test("identifier", (assert) => {
-    const message = "should be a function";
-    const expected = "function";
-    const actual = typeof sql.identifier;
-
-    assert.equal(actual, expected, message);
-
-    assert.end();
-  });
-  t.test("identifier (one)", (assert) => {
-    const node = sql.identifier("foo");
-
-    const message = "should return a SQL node (type 'IDENTIFIER') with 1st parameter (string) added to the names array property";
-    const expected = { type: "IDENTIFIER", names: ["foo"] };
-    const actual = node;
-
-    assert.deepEqual(actual, expected, message);
-
-    assert.end();
-  });
-  t.test("identifier (many)", (assert) => {
-    const node = sql.identifier("foo", "bar", 'b"z'); /* eslint-disable-line quotes */
-
-    const message = "should return a SQL node (type 'IDENTIFIER') with all parameters (strings) added to the names array property";
-    const expected = { type: "IDENTIFIER", names: ["foo", "bar", 'b"z'] }; /* eslint-disable-line quotes */
-    const actual = node;
-
-    assert.deepEqual(actual, expected, message);
-
-    assert.end();
-  });
-  t.test("identifier (many inc. unescaped single quote)", (assert) => {
-    const node = sql.identifier("foo", "bar", "b'z");
-
-    const message = "should return a SQL node (type 'IDENTIFIER') with all parameters (strings) added to the names array property";
-    const expected = { type: "IDENTIFIER", names: ["foo", "bar", "b\'z"] }; /* eslint-disable-line no-useless-escape */
-    const actual = node;
-
-    assert.deepEqual(actual, expected, message);
-
-    assert.end();
-  });
   t.test("query", (assert) => {
     const message = "should be a function";
     const expected = "function";
