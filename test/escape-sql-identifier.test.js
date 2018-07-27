@@ -27,7 +27,7 @@ test("escapeSqlIdentifier", (t) => {
     const expected = ""; /* eslint-disable-line quotes */
     const actual = node;
 
-    assert.deepEqual(actual, expected, message);
+    assert.equal(actual, expected, message);
 
     assert.end();
   });
@@ -38,7 +38,7 @@ test("escapeSqlIdentifier", (t) => {
     const expected = '"TableName"'; /* eslint-disable-line quotes */
     const actual = node;
 
-    assert.deepEqual(actual, expected, message);
+    assert.equal(actual, expected, message);
 
     assert.end();
   });
@@ -49,7 +49,7 @@ test("escapeSqlIdentifier", (t) => {
     const expected = '"\'TableName\'"'; /* eslint-disable-line quotes */
     const actual = node;
 
-    assert.deepEqual(actual, expected, message);
+    assert.equal(actual, expected, message);
 
     assert.end();
   });
@@ -60,7 +60,7 @@ test("escapeSqlIdentifier", (t) => {
     const expected = '"""TableName"""'; /* eslint-disable-line quotes */
     const actual = node;
 
-    assert.deepEqual(actual, expected, message);
+    assert.equal(actual, expected, message);
 
     assert.end();
   });
@@ -71,7 +71,7 @@ test("escapeSqlIdentifier", (t) => {
     const expected = '"Table""Name"'; /* eslint-disable-line quotes */
     const actual = node;
 
-    assert.deepEqual(actual, expected, message);
+    assert.equal(actual, expected, message);
 
     assert.end();
   });
@@ -82,7 +82,7 @@ test("escapeSqlIdentifier", (t) => {
     const expected = '"Table ""Name"'; /* eslint-disable-line quotes */
     const actual = node;
 
-    assert.deepEqual(actual, expected, message);
+    assert.equal(actual, expected, message);
 
     assert.end();
   });
