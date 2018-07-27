@@ -3,13 +3,6 @@
 import enforceValidNode from "./enforce-valid-node";
 import raw from "./raw";
 
-// const debug = require("debug")("pg-sql2-pg:query");
-
-// function debugError(err) {
-//   debug(err);
-//   return err;
-// }
-
 /**
  * A template string tag that creates a `Sql` query out of some strings and
  * some values. Use this to construct all PostgreSQL queries to avoid SQL
