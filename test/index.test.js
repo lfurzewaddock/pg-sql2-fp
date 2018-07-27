@@ -2,26 +2,6 @@ import test from "tape";
 import * as sql from "../src";
 
 test("sql", (t) => {
-  t.test("value", (assert) => {
-    const message = "should be a function";
-    const expected = "function";
-    const actual = typeof sql.value;
-
-    assert.equal(actual, expected, message);
-
-    assert.end();
-  });
-  t.test("value", (assert) => {
-    const node = sql.value({ foo: { bar: 1 } });
-
-    const message = "should return a SQL node (type 'VALUE') with 1st parameter (object) added to the value property";
-    const expected = { type: "VALUE", value: { foo: { bar: 1 } } };
-    const actual = node;
-
-    assert.deepEqual(actual, expected, message);
-
-    assert.end();
-  });
   t.test("query", (assert) => {
     const message = "should be a function";
     const expected = "function";
