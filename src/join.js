@@ -1,6 +1,6 @@
+import enforceValidNode from "./enforce-valid-node";
 import ensureNonEmptyArray from "./ensure-non-empty-array";
 import raw from "./raw";
-import enforceValidNode from "./enforce-valid-node";
 
 /**
  * Join some Sql items together seperated by a string. Useful when dealing

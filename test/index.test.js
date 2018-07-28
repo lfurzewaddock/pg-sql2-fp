@@ -2,15 +2,6 @@ import test from "tape";
 import * as sql from "../src";
 
 test("sql", (t) => {
-  t.test("join", (assert) => {
-    const message = "should be a function";
-    const expected = "function";
-    const actual = typeof sql.join;
-
-    assert.equal(actual, expected, message);
-
-    assert.end();
-  });
   t.test("join sql.value, sql.identifier, sql.query and sql.query inc. a sql.value and a sql.query", (assert) => {
     const node = sql.query`select ${sql.join(
       [
@@ -41,35 +32,6 @@ test("sql", (t) => {
 
     assert.deepEqual(actual, expected, message);
 
-    assert.end();
-  });
-  t.test("join two simple queries", (assert) => {
-    const message = "should throw an error if seperator argument provided is not a string";
-
-    assert.throws(function throwsFn() {
-      /* eslint-disable no-unused-expressions */
-      sql.query`select ${sql.join(
-        [
-          sql.query`foo(1)`,
-          sql.query`bar(2)`,
-        ],
-        1,
-      )}`;
-      /* eslint-enable no-unused-expressions */
-    }, message);
-    assert.end();
-  });
-  t.test("join two simple queries", (assert) => {
-    const message = "should not throw an error if seperator argument is not provided";
-
-    assert.doesNotThrow(function doesNotThrowFn() {
-      /* eslint-disable no-unused-expressions */
-      sql.query`select ${sql.join([
-        sql.query`foo(1)`,
-        sql.query`bar(2)`,
-      ])}`;
-      /* eslint-enable no-unused-expressions */
-    }, message);
     assert.end();
   });
   t.test("compile", (assert) => {
