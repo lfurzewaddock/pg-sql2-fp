@@ -13,7 +13,7 @@ import raw from "./raw";
  */
 export default function query(strings, ...values) {
   if (!Array.isArray(strings)) {
-    throw new Error("sql.query should be used as a template literal, not a function call!");
+    throw new Error("query should be used as a template literal, not a function call!");
   }
   const items = [];
   for (let i = 0, l = strings.length; i < l; i += 1) {
