@@ -108,6 +108,19 @@ test("handleSqlIdentifier", (t) => {
 
     assert.end();
   });
+  t.test("invoke handleSqlIdentifier with an array containing 2 identical symbols as the 1st argument", (assert) => {
+    const ident1 = Symbol.for("ident");
+    const ident2 = Symbol.for("ident");
+    const node = handleSqlIdentifier([ident1, ident2]);
+
+    const message = "should return a string with 1 alias, repeated twice: format '__local_<increment>__', separated by full stops";
+    const expected = "__local_1__.__local_1__";
+    const actual = node;
+
+    assert.equal(actual, expected, message);
+
+    assert.end();
+  });
   t.test("invoke handleSqlIdentifier with an array containing 3 symbols as the 1st argument", (assert) => {
     const ident1 = Symbol("ident");
     const ident2 = Symbol("ident");
@@ -116,6 +129,20 @@ test("handleSqlIdentifier", (t) => {
 
     const message = "should return a string with 3 aliases: format '__local_<increment>__', separated by full stops";
     const expected = "__local_1__.__local_2__.__local_3__";
+    const actual = node;
+
+    assert.equal(actual, expected, message);
+
+    assert.end();
+  });
+  t.test("invoke handleSqlIdentifier with an array containing 2 identical symbols as the 1st argument", (assert) => {
+    const ident1 = Symbol.for("ident");
+    const ident2 = Symbol.for("ident");
+    const ident3 = Symbol.for("ident");
+    const node = handleSqlIdentifier([ident1, ident2, ident3]);
+
+    const message = "should return a string with 1 alias, repeated twice: format '__local_<increment>__', separated by full stops";
+    const expected = "__local_1__.__local_1__.__local_1__";
     const actual = node;
 
     assert.equal(actual, expected, message);
