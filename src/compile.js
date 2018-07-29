@@ -1,3 +1,4 @@
+import debugError from "./debug-error";
 import enforceValidNode from "./enforce-valid-node";
 import handleSqlIdentifier from "./handle-sql-identifier";
 
@@ -38,6 +39,7 @@ export default function compile(sql) {
         sqlFragments.push(`$${values.length}`);
         break;
       default:
+        throw debugError(new Error("Sql item type not recognised!"));
     }
   }
 
