@@ -25,8 +25,8 @@ test("literal", (t) => {
   t.test("invoke literal with empty string as 1st argument", (assert) => {
     const node = literal("");
 
-    const message = "should return a SQL node (type 'RAW') with doube quotes x 2 added to the text property";
-    const expected = { type: "RAW", text: '""' }; /* eslint-disable-line quotes */
+    const message = "should return a SQL node (type 'RAW') with single quotes x 2 added to the text property";
+    const expected = { type: "RAW", text: "''" };
     const actual = node;
 
     assert.deepEqual(actual, expected, message);
@@ -48,7 +48,7 @@ test("literal", (t) => {
     const node = literal("1aA -_@!");
 
     const message = "should return a SQL node (type 'RAW') with 1st parameter (string) added as a double quoted string to the text property";
-    const expected = { type: "RAW", text: '"1aA -_@!"' }; /* eslint-disable-line quotes */
+    const expected = { type: "RAW", text: "'1aA -_@!'" };
     const actual = node;
 
     assert.deepEqual(actual, expected, message);

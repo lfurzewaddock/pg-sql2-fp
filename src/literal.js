@@ -12,12 +12,12 @@ const nullNode = raw(`NULL`); /* eslint-disable-line quotes */
 export default function literal(val) {
   // Match alphanumeric string and/or -_@!
   if (typeof val === "string" && val.match(/^[-a-zA-Z0-9_@! ]*$/)) {
-    return raw(`"${val}"`);
+    return raw(`'${val}'`);
   } else if (typeof val === "number" && Number.isFinite(val)) {
     if (Number.isInteger(val)) {
       return raw(String(val));
     }
-    return raw(`'${0 + val}'::float`); // TODO wrap with double quotes, i.e. "${0 + val}"
+    return raw(`'${0 + val}'::float`);
   } else if (typeof val === "boolean") {
     return val ? trueNode : falseNode;
   } else if (val == null) {
