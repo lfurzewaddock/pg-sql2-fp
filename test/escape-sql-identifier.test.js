@@ -86,4 +86,92 @@ test("escapeSqlIdentifier", (t) => {
 
     assert.end();
   });
+  // Sourced escapeIdentifier tests from node-postgres project
+  // Source: https://github.com/brianc/node-postgres/blob/6c840aabb09f8a2d640800953f6b884b6841384c/test/unit/client/escape-tests.js#L51
+  // START
+
+  t.test("invoke escapeSqlIdentifier with 'no special characters' as 1st argument", (assert) => {
+    const node = escapeSqlIdentifier('hello world'); /* eslint-disable-line quotes */
+
+    const message = "should return 1st argument wrapped in set of double quotes with space preserved";
+    const expected = '"hello world"'; /* eslint-disable-line quotes */
+    const actual = node;
+
+    assert.equal(actual, expected, message);
+    assert.end();
+  });
+  t.test("invoke escapeSqlIdentifier with 'contains double quotes only' as 1st argument", (assert) => {
+    const node = escapeSqlIdentifier('hello " world'); /* eslint-disable-line quotes */
+
+    const message = "should return 1st argument wrapped in set of double quotes with space preserved and single double quote character, escaped with double quote";
+    const expected = '"hello "" world"'; /* eslint-disable-line quotes */
+    const actual = node;
+
+    assert.equal(actual, expected, message);
+    assert.end();
+  });
+  t.test("invoke escapeSqlIdentifier with 'contains single quotes only' as 1st argument", (assert) => {
+    const node = escapeSqlIdentifier('hello \' world'); /* eslint-disable-line quotes */
+
+    const message = "should return 1st argument wrapped in set of double quotes with space preserved and escaped single single quote character preserved";
+    const expected = '"hello \' world"'; /* eslint-disable-line quotes */
+    const actual = node;
+
+    assert.equal(actual, expected, message);
+    assert.end();
+  });
+  t.test("invoke escapeSqlIdentifier with 'contains backslashes only' as 1st argument", (assert) => {
+    const node = escapeSqlIdentifier('hello \\ world'); /* eslint-disable-line quotes */
+
+    const message = "should return 1st argument wrapped in set of double quotes with space preserved and escaped backslash character preserved";
+    const expected = '"hello \\ world"'; /* eslint-disable-line quotes */
+    const actual = node;
+
+    assert.equal(actual, expected, message);
+    assert.end();
+  });
+  t.test("invoke escapeSqlIdentifier with 'contains single quotes and double quotes' as 1st argument", (assert) => {
+    const node = escapeSqlIdentifier('hello \' " world'); /* eslint-disable-line quotes */
+
+    const message = "should return 1st argument wrapped in set of double quotes with space preserved and escaped single quote character preserved, single double quote character, escaped with double quote character";
+    const expected = '"hello \' "" world"'; /* eslint-disable-line quotes */
+    const actual = node;
+
+    assert.equal(actual, expected, message);
+    assert.end();
+  });
+  t.test("invoke escapeSqlIdentifier with 'contains double quotes and backslashes' as 1st argument", (assert) => {
+    const node = escapeSqlIdentifier('hello \\ " world'); /* eslint-disable-line quotes */
+
+    const message = "should return 1st argument wrapped in set of double quotes with space preserved and escaped single backslash character preserved, single double quote character, escaped with double quote character";
+    const expected = '"hello \\ "" world"'; /* eslint-disable-line quotes */
+    const actual = node;
+
+    assert.equal(actual, expected, message);
+    assert.end();
+  });
+  t.test("invoke escapeSqlIdentifier with 'contains single quotes and backslashes' as 1st argument", (assert) => {
+    const node = escapeSqlIdentifier('hello \\ \' world'); /* eslint-disable-line quotes */
+
+    const message = "should return 1st argument wrapped in set of double quotes with space preserved and escaped single backslash character preserved, escaped single single quote character preserved";
+    const expected = '"hello \\ \' world"'; /* eslint-disable-line quotes */
+    const actual = node;
+
+    assert.equal(actual, expected, message);
+    assert.end();
+  });
+  t.test("invoke escapeSqlIdentifier with 'contains single quotes, double quotes, and backslashes' as 1st argument", (assert) => {
+    const node = escapeSqlIdentifier('hello \\ \' " world'); /* eslint-disable-line quotes */
+
+    const message = "should return 1st argument wrapped in set of double quotes with space preserved and escaped single backslash character preserved, escaped single single quote character preserved and single double quote character, escaped with double quote character";
+    const expected = '"hello \\ \' "" world"'; /* eslint-disable-line quotes */
+    const actual = node;
+
+    assert.equal(actual, expected, message);
+    assert.end();
+  });
+
+  // END
+  // Sourced escapeIdentifier tests from node-postgres project
+  // Source: https://github.com/brianc/node-postgres/blob/6c840aabb09f8a2d640800953f6b884b6841384c/test/unit/client/escape-tests.js#L51
 });
