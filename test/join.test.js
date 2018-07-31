@@ -1,6 +1,5 @@
 import test from "tape";
 import join from "../src/join";
-import trustedSymbol from "../src/trusted-symbol";
 
 test("join", (t) => {
   t.test("join", (assert) => {
@@ -22,9 +21,9 @@ test("join", (t) => {
     assert.end();
   });
   t.test("invoke join with an array of 2 x 'Sql items' as the 1st argument and a ',' as the 2nd argument", (assert) => {
-    const $$trusted = trustedSymbol();
-    const mockSqlFoo = { type: "RAW", text: "foo(1)", [$$trusted]: true };
-    const mockSqlBar = { type: "RAW", text: "bar(2)", [$$trusted]: true };
+    const mock$$trusted = Symbol.for("development");
+    const mockSqlFoo = { type: "RAW", text: "foo(1)", [mock$$trusted]: true };
+    const mockSqlBar = { type: "RAW", text: "bar(2)", [mock$$trusted]: true };
 
     const node = join(
       [
@@ -48,9 +47,9 @@ test("join", (t) => {
     assert.end();
   });
   t.test("invoke join with an array of 2 x 'Sql items' as the 1st argument and a ',' as the 2nd argument", (assert) => {
-    const $$trusted = trustedSymbol();
-    const mockSqlFoo = { type: "RAW", text: "foo(1)", [$$trusted]: true };
-    const mockIdentifier = { type: "IDENTIFIER", names: ["foo", "bar"], [$$trusted]: true };
+    const mock$$trusted = Symbol.for("development");
+    const mockSqlFoo = { type: "RAW", text: "foo(1)", [mock$$trusted]: true };
+    const mockIdentifier = { type: "IDENTIFIER", names: ["foo", "bar"], [mock$$trusted]: true };
 
     const node = join(
       [
@@ -74,11 +73,11 @@ test("join", (t) => {
     assert.end();
   });
   t.test("invoke join with 'Sql item' (array of sub-queries) as the 1st argument and a ',' as the 2nd argument", (assert) => {
-    const $$trusted = trustedSymbol();
+    const mock$$trusted = Symbol.for("development");
     const mockNestedQuery = [
-      { type: "RAW", text: "baz.qux(1, ", [$$trusted]: true },
-      { type: "RAW", text: "2", [$$trusted]: true },
-      { type: "RAW", text: ", 3)", [$$trusted]: true },
+      { type: "RAW", text: "baz.qux(1, ", [mock$$trusted]: true },
+      { type: "RAW", text: "2", [mock$$trusted]: true },
+      { type: "RAW", text: ", 3)", [mock$$trusted]: true },
     ];
 
     const node = join(
@@ -102,13 +101,13 @@ test("join", (t) => {
     assert.end();
   });
   t.test("invoke join with 'Sql item' (array of sub-queries) as the 1st argument and a ',' as the 2nd argument", (assert) => {
-    const $$trusted = trustedSymbol();
-    const mockSqlFoo = { type: "RAW", text: "foo(1)", [$$trusted]: true };
-    const mockIdentifier = { type: "IDENTIFIER", names: ["foo", "bar"], [$$trusted]: true };
+    const mock$$trusted = Symbol.for("development");
+    const mockSqlFoo = { type: "RAW", text: "foo(1)", [mock$$trusted]: true };
+    const mockIdentifier = { type: "IDENTIFIER", names: ["foo", "bar"], [mock$$trusted]: true };
     const mockNestedQuery = [
-      { type: "RAW", text: "baz.qux(1, ", [$$trusted]: true },
-      { type: "RAW", text: "2", [$$trusted]: true },
-      { type: "RAW", text: ", 3)", [$$trusted]: true },
+      { type: "RAW", text: "baz.qux(1, ", [mock$$trusted]: true },
+      { type: "RAW", text: "2", [mock$$trusted]: true },
+      { type: "RAW", text: ", 3)", [mock$$trusted]: true },
     ];
 
     const node = join(
@@ -139,9 +138,9 @@ test("join", (t) => {
     assert.end();
   });
   t.test("invoke join with an array of 2 x 'Sql items' as the 1st argument and do not provide a 2nd argument", (assert) => {
-    const $$trusted = trustedSymbol();
-    const mockSqlFoo = { type: "RAW", text: "foo(1)", [$$trusted]: true };
-    const mockSqlBar = { type: "RAW", text: "bar(2)", [$$trusted]: true };
+    const mock$$trusted = Symbol.for("development");
+    const mockSqlFoo = { type: "RAW", text: "foo(1)", [mock$$trusted]: true };
+    const mockSqlBar = { type: "RAW", text: "bar(2)", [mock$$trusted]: true };
 
     const node = join([
       mockSqlFoo,
@@ -161,9 +160,9 @@ test("join", (t) => {
     assert.end();
   });
   t.test("invoke join with an array of 2 x 'Sql items' as the 1st argument and do not provide a 2nd argument", (assert) => {
-    const $$trusted = trustedSymbol();
-    const mockSqlFoo = { type: "RAW", text: "foo(1)", [$$trusted]: true };
-    const mockSqlBar = { type: "RAW", text: "bar(2)", [$$trusted]: true };
+    const mock$$trusted = Symbol.for("development");
+    const mockSqlFoo = { type: "RAW", text: "foo(1)", [mock$$trusted]: true };
+    const mockSqlBar = { type: "RAW", text: "bar(2)", [mock$$trusted]: true };
 
     const message = "should not throw an error when 2nd argument for the seperator is not provided";
 
@@ -177,9 +176,9 @@ test("join", (t) => {
     assert.end();
   });
   t.test("invoke join with an array of 2 x 'Sql items' as the 1st argument and an integer as the 2nd argument", (assert) => {
-    const $$trusted = trustedSymbol();
-    const mockSqlFoo = { type: "RAW", text: "foo(1)", [$$trusted]: true };
-    const mockSqlBar = { type: "RAW", text: "bar(2)", [$$trusted]: true };
+    const mock$$trusted = Symbol.for("development");
+    const mockSqlFoo = { type: "RAW", text: "foo(1)", [mock$$trusted]: true };
+    const mockSqlBar = { type: "RAW", text: "bar(2)", [mock$$trusted]: true };
 
     const message = "throws an error complaining the separator argument must be string";
 
@@ -196,9 +195,9 @@ test("join", (t) => {
     assert.end();
   });
   t.test("invoke join with an array of 2 x 'Sql items' as the 1st argument and boolean true as the 2nd argument", (assert) => {
-    const $$trusted = trustedSymbol();
-    const mockSqlFoo = { type: "RAW", text: "foo(1)", [$$trusted]: true };
-    const mockSqlBar = { type: "RAW", text: "bar(2)", [$$trusted]: true };
+    const mock$$trusted = Symbol.for("development");
+    const mockSqlFoo = { type: "RAW", text: "foo(1)", [mock$$trusted]: true };
+    const mockSqlBar = { type: "RAW", text: "bar(2)", [mock$$trusted]: true };
 
     const message = "throws an error complaining the separator argument must be string";
 
@@ -215,9 +214,9 @@ test("join", (t) => {
     assert.end();
   });
   t.test("invoke join with an array of 2 x 'Sql items' as the 1st argument and boolean false as the 2nd argument", (assert) => {
-    const $$trusted = trustedSymbol();
-    const mockSqlFoo = { type: "RAW", text: "foo(1)", [$$trusted]: true };
-    const mockSqlBar = { type: "RAW", text: "bar(2)", [$$trusted]: true };
+    const mock$$trusted = Symbol.for("development");
+    const mockSqlFoo = { type: "RAW", text: "foo(1)", [mock$$trusted]: true };
+    const mockSqlBar = { type: "RAW", text: "bar(2)", [mock$$trusted]: true };
 
     const message = "throws an error complaining the separator argument must be string";
 

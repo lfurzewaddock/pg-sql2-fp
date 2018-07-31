@@ -1,6 +1,5 @@
 import test from "tape";
 import compile from "../src/compile";
-import trustedSymbol from "../src/trusted-symbol";
 
 test("compile", (t) => {
   t.test("compile", (assert) => {
@@ -22,9 +21,9 @@ test("compile", (t) => {
     assert.end();
   });
   t.test("invoke compile with an array of 1 SQL item, type 'RAW', text 'select 1'", (assert) => {
-    const $$trusted = trustedSymbol();
+    const mock$$trusted = Symbol.for("development");
     const mockQuery = [
-      { type: "RAW", text: "select 1", [$$trusted]: true },
+      { type: "RAW", text: "select 1", [mock$$trusted]: true },
     ];
 
     const message = "should return an object with two properties: text property: 'select 1' and values property: empty array ";
@@ -36,9 +35,9 @@ test("compile", (t) => {
     assert.end();
   });
   t.test("invoke compile with an array of 1 SQL item, type 'RAW', text '1'", (assert) => {
-    const $$trusted = trustedSymbol();
+    const mock$$trusted = Symbol.for("development");
     const mockQuery = [
-      { type: "RAW", text: "1", [$$trusted]: true },
+      { type: "RAW", text: "1", [mock$$trusted]: true },
     ];
 
     const message = "should return an object with two properties: text property: '1' and values property: empty array ";
@@ -50,9 +49,9 @@ test("compile", (t) => {
     assert.end();
   });
   t.test("invoke compile with an array of 1 'Sql item', type 'RAW' and text property: 1 (integer)", (assert) => {
-    const $$trusted = trustedSymbol();
+    const mock$$trusted = Symbol.for("development");
     const mockQuery = [
-      { type: "RAW", text: 1, [$$trusted]: true },
+      { type: "RAW", text: 1, [mock$$trusted]: true },
     ];
     const message = "throws an error complaining that a 'SQL item' is expected";
 
@@ -63,9 +62,9 @@ test("compile", (t) => {
     assert.end();
   });
   t.test("invoke compile with an array of 1 SQL item, type 'IDENTIFIER', names ['foo', 'bar']", (assert) => {
-    const $$trusted = trustedSymbol();
+    const mock$$trusted = Symbol.for("development");
     const mockQuery = [
-      { type: "IDENTIFIER", names: ["foo", "bar"], [$$trusted]: true },
+      { type: "IDENTIFIER", names: ["foo", "bar"], [mock$$trusted]: true },
     ];
 
     const message = "should return an object with two properties: text property: '\"foo\".\"bar\"' and values property: empty array ";
@@ -77,9 +76,9 @@ test("compile", (t) => {
     assert.end();
   });
   t.test("invoke compile with an array of 1 SQL item, type 'IDENTIFIER', names property: empty text string", (assert) => {
-    const $$trusted = trustedSymbol();
+    const mock$$trusted = Symbol.for("development");
     const mockQuery = [
-      { type: "IDENTIFIER", names: "", [$$trusted]: true },
+      { type: "IDENTIFIER", names: "", [mock$$trusted]: true },
     ];
     const message = "throws an error complaining that an Identifier must have a name";
 
@@ -90,9 +89,9 @@ test("compile", (t) => {
     assert.end();
   });
   t.test("invoke compile with an array of 1 'Sql item', type 'VALUE' and value property: 1 (integer)", (assert) => {
-    const $$trusted = trustedSymbol();
+    const mock$$trusted = Symbol.for("development");
     const mockQuery = [
-      { type: "VALUE", value: 1, [$$trusted]: true },
+      { type: "VALUE", value: 1, [mock$$trusted]: true },
     ];
 
     const message = "should return an object with two properties: text property: $1 and values property: [1] ";
@@ -104,9 +103,9 @@ test("compile", (t) => {
     assert.end();
   });
   t.test("invoke compile with an array of 1 'Sql item', type 'UNKNOWN' and text property: empty text string", (assert) => {
-    const $$trusted = trustedSymbol();
+    const mock$$trusted = Symbol.for("development");
     const mockQuery = [
-      { type: "UNKNOWN", text: "", [$$trusted]: true },
+      { type: "UNKNOWN", text: "", [mock$$trusted]: true },
     ];
     const message = "throws an error complaining the type of 'Sql item' provided is not recognised!";
 
