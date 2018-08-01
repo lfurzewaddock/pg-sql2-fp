@@ -1,5 +1,6 @@
 import raw from "./raw";
 import value from "./value";
+import escapeSqlLiteral from "./escape-sql-literal";
 
 const trueNode = raw(`TRUE`); /* eslint-disable-line quotes */
 const falseNode = raw(`FALSE`); /* eslint-disable-line quotes */
@@ -11,15 +12,16 @@ const nullNode = raw(`NULL`); /* eslint-disable-line quotes */
  */
 export default function literal(val) {
   // Match alphanumeric string and/or -_@!
-  if (typeof val === "string" && val.match(/^[-a-zA-Z0-9_@! ]*$/)) {
-    return raw(`'${val}'`);
+  // Block double hyphen -- used for comments
+  if (typeof val === "string" && val.match(/^((?!-{2})[-a-zA-Z0-9_@! ])*$/)) {
+    return raw(`'${escapeSqlLiteral(val)}'`);
   } else if (typeof val === "number" && Number.isFinite(val)) {
     if (Number.isInteger(val)) {
-      return raw(String(val));
+      return raw(String(escapeSqlLiteral(val))); // only digits and hyphen = integer literal
     }
-    return raw(`'${0 + val}'::float`);
+    return raw(`'${0 + escapeSqlLiteral(val)}'::float`);
   } else if (typeof val === "boolean") {
-    return val ? trueNode : falseNode;
+    return escapeSqlLiteral(val) ? trueNode : falseNode;
   } else if (val == null) {
     return nullNode;
   }
