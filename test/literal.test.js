@@ -26,7 +26,7 @@ test("literal", (t) => {
     const node = literal("");
 
     const message = "should return a SQL node (type 'RAW') with single quotes x 2 added to the text property";
-    const expected = { type: "RAW", text: "''" };
+    const expected = { type: "RAW", text: "" };
     const actual = node;
 
     assert.deepEqual(actual, expected, message);
@@ -47,7 +47,7 @@ test("literal", (t) => {
   t.test("invoke literal with string containing whitelisted characters:  1aA-_@!  as 1st argument", (assert) => {
     const node = literal("1aA -_@!");
 
-    const message = "should return a SQL node (type 'RAW') with 1st parameter (string) added as a double quoted string to the text property";
+    const message = "should return a SQL node (type 'RAW') with 1st parameter (string) wrapped in single quotes added to the text property";
     const expected = { type: "RAW", text: "'1aA -_@!'" };
     const actual = node;
 

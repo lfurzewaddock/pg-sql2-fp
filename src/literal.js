@@ -14,14 +14,14 @@ export default function literal(val) {
   // Match alphanumeric string and/or -_@!
   // Block double hyphen -- used for comments
   if (typeof val === "string" && val.match(/^((?!-{2})[-a-zA-Z0-9_@! ])*$/)) {
-    return raw(`'${escapeSqlLiteral(val)}'`);
+    return raw(`${escapeSqlLiteral(val)}`);
   } else if (typeof val === "number" && Number.isFinite(val)) {
     if (Number.isInteger(val)) {
-      return raw(String(escapeSqlLiteral(val))); // only digits and hyphen = integer literal
+      return raw(String(val)); // only digits and hyphen = integer literal
     }
-    return raw(`'${0 + escapeSqlLiteral(val)}'::float`);
+    return raw(`'${0 + val}'::float`);
   } else if (typeof val === "boolean") {
-    return escapeSqlLiteral(val) ? trueNode : falseNode;
+    return val ? trueNode : falseNode;
   } else if (val == null) {
     return nullNode;
   }
