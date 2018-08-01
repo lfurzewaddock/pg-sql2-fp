@@ -1,14 +1,14 @@
 import test from "tape";
-import * as sql from "../src";
+import sql from "../src";
 
 test("sql", (t) => {
-  t.test("join sql.value, sql.identifier, sql.query and sql.query inc. a sql.value and a sql.query", (assert) => {
-    const node = sql.query`select ${sql.join(
+  t.test("join sql.value, sql.ident, sql and sql inc. a sql.value and a sql", (assert) => {
+    const node = sql`select ${sql.concat(
       [
         sql.value(1),
-        sql.identifier("foo", "bar"),
-        sql.query`baz.qux(1, 2, 3)`,
-        sql.query`baz.qux(${sql.value(1)}, ${sql.query`2`}, 3)`,
+        sql.ident("foo", "bar"),
+        sql`baz.qux(1, 2, 3)`,
+        sql`baz.qux(${sql.value(1)}, ${sql`2`}, 3)`,
       ],
       ", ",
     )}`;
@@ -35,7 +35,7 @@ test("sql", (t) => {
     assert.end();
   });
   t.test("compile (simple: template literal with number surrounded by single quotes)", (assert) => {
-    const node = sql.query`\'1\'`;
+    const node = sql`\'1\'`;
 
     const message = "should return an object with two properties: text property: 1 with escaped single quotes and values property: empty array ";
     const expected = { text: "\'1\'", values: [] }; /* eslint-disable-line no-useless-escape */
@@ -47,7 +47,7 @@ test("sql", (t) => {
   });
   t.test("compile (with Symbol identifier)", (assert) => {
     const ident = Symbol("ident");
-    const node = sql.query`${sql.identifier(ident)}`;
+    const node = sql`${sql.ident(ident)}`;
 
     const message = "should return an object with two properties: text property: SQL query with alias __local_[increment]__ and values property: empty array ";
     const expected = {
@@ -64,13 +64,13 @@ test("sql", (t) => {
     const message = "throws an error complaining that an invalid argument to makeIdentifierNode - array of strings/symbols is expected";
 
     assert.throws(function throwsFn() {
-      sql.query`${sql.identifier(1)}`; /* eslint-disable-line no-unused-expressions */
+      sql`${sql.ident(1)}`; /* eslint-disable-line no-unused-expressions */
     }, /(Error: Invalid argument to makeIdentifierNode - expected array of strings\/symbols)/, message);
 
     assert.end();
   });
   t.test("compile (with values)", (assert) => {
-    const node = sql.query`select ${sql.value(1)}::integer`;
+    const node = sql`select ${sql.value(1)}::integer`;
 
     const message = "should return an object with two properties: text property: paramterized query SQL with single dollar param and values property: array with single value ";
     const expected = {
@@ -84,7 +84,7 @@ test("sql", (t) => {
     assert.end();
   });
   t.test("compile (with sub-sub-sub query)", (assert) => {
-    const node = sql.query`select ${sql.query`1 ${sql.query`from ${sql.query`foo`}`}`}`;
+    const node = sql`select ${sql`1 ${sql`from ${sql`foo`}`}`}`;
 
     const message = "should return an object with two properties: text property: paramterized query SQL and values property: array empty";
     const expected = {
@@ -97,8 +97,8 @@ test("sql", (t) => {
 
     assert.end();
   });
-  t.test("compile (more complex including multiple sql.query, a sql.value and a sql.identifier)", (assert) => {
-    const node = sql.query`select ${sql.query`${sql.value(1)} ${sql.query`from ${sql.identifier("foo", 'b"z')}`}`}`; /* eslint-disable-line quotes */
+  t.test("compile (more complex including multiple sql, a sql.value and a sql.ident)", (assert) => {
+    const node = sql`select ${sql`${sql.value(1)} ${sql`from ${sql.ident("foo", 'b"z')}`}`}`; /* eslint-disable-line quotes */
 
     const message = "should return an object with two properties: text property: paramterized query SQL and values property: array with single value";
     const expected = {
@@ -111,13 +111,13 @@ test("sql", (t) => {
 
     assert.end();
   });
-  t.test("compile (more complex including a join, multiple sql.query, multiple sql.value, and a sql.identifier)", (assert) => {
-    const node = sql.query`select ${sql.join(
+  t.test("compile (more complex including a join, multiple sql, multiple sql.value, and a sql.ident)", (assert) => {
+    const node = sql`select ${sql.concat(
       [
         sql.value(1),
-        sql.identifier("foo", "bar"),
-        sql.query`baz.qux(1, 2, 3)`,
-        sql.query`baz.qux(${sql.value(1)}, ${sql.query`2`}, 3)`,
+        sql.ident("foo", "bar"),
+        sql`baz.qux(1, 2, 3)`,
+        sql`baz.qux(${sql.value(1)}, ${sql`2`}, 3)`,
       ],
       ", ",
     )}`;
@@ -138,12 +138,12 @@ test("sql", (t) => {
 
     assert.throws(function throwsFn() {
       /* eslint-disable no-unused-expressions */
-      sql.query`select ${sql.join(
+      sql`select ${sql.concat(
         [
           { type: "VALUE", value: 1 },
-          sql.identifier("foo", "bar"),
-          sql.query`baz.qux(1, 2, 3)`,
-          sql.query`baz.qux(${sql.value(1)}, ${sql.query`2`}, 3)`,
+          sql.ident("foo", "bar"),
+          sql`baz.qux(1, 2, 3)`,
+          sql`baz.qux(${sql.value(1)}, ${sql`2`}, 3)`,
         ],
         ", ",
       )}`;
@@ -152,22 +152,33 @@ test("sql", (t) => {
 
     assert.end();
   });
-  t.test("sqli - attempting to use a plain template literal placeholder in a sql.query", (assert) => {
+  t.test("sqli - attempting to use a plain template literal placeholder in a sql", (assert) => {
     const message = "throws an error complaining a SQL item was expected";
 
     assert.throws(function throwsFn() {
       /* eslint-disable no-unused-expressions */
-      sql.query`select ${sql.join(
+      sql`select ${sql.concat(
         [
           sql.value(1),
-          sql.identifier("foo", "bar"),
-          sql.query`baz.qux(1, 2, 3)`,
-          sql.query`baz.qux(${sql.value(1)}, ${sql.query`2`}, 3)`,
+          sql.ident("foo", "bar"),
+          sql`baz.qux(1, 2, 3)`,
+          sql`baz.qux(${sql.value(1)}, ${sql`2`}, 3)`,
         ],
         ", ",
       )}, ${3}`;
       /* eslint-enable no-unused-expressions */
     }, /(Error: Expected SQL item, instead received '3')/, message);
+
+    assert.end();
+  });
+  t.test("sqli - will escape identifiers", (assert) => {
+    const node = sql`${sql.ident('hello', 'world')} ${sql.ident('escape"me')}`; /* eslint-disable-line quotes */
+
+    const message = "should return an object with two properties: text property: paramterized query SQL and values property: array with two values";
+    const expected = { text: '"hello"."world" "escape""me"', values: [] }; /* eslint-disable-line quotes */
+    const actual = sql.compile(node);
+
+    assert.deepEqual(actual, expected, message);
 
     assert.end();
   });
