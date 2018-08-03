@@ -16,3 +16,6 @@ dist
 
 # coveralls config file
 .coveralls.yml
+
+# environment variables and secure credentials
+.env
