@@ -10,5 +10,5 @@ cache:
   directories:
     - "node_modules"
 before_script:
-  - psql -c 'create database pg-sql2-fp-ci;' -U postgres
+  - psql -c 'create database "pg-sql2-fp-ci";' -U postgres
 after_success: npm run coveralls
