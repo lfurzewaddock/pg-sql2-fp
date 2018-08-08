@@ -1,5 +1,5 @@
 import test from "tape";
-import compile from "../src/compile";
+import compile from "../../src/compile";
 
 test("compile", (t) => {
   t.test("compile", (assert) => {

@@ -1,5 +1,5 @@
 import test from "tape";
-import value from "../src/value";
+import value from "../../src/value";
 
 test("value", (t) => {
   t.test("value", (assert) => {

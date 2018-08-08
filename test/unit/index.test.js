@@ -1,5 +1,5 @@
 import test from "tape";
-import sql from "../src";
+import sql from "../../src";
 
 test("sql", (t) => {
   t.test("join sql.value, sql.ident, sql and sql inc. a sql.value and a sql", (assert) => {

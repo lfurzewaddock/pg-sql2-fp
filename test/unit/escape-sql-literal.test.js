@@ -1,5 +1,5 @@
 import test from "tape";
-import escapeSqlLiteral from "../src/escape-sql-literal";
+import escapeSqlLiteral from "../../src/escape-sql-literal";
 
 test("escapeSqlLiteral", (t) => {
   t.test("escapeSqlLiteral", (assert) => {

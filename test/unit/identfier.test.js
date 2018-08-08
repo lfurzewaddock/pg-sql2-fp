@@ -1,5 +1,5 @@
 import test from "tape";
-import identifier from "../src/identifier";
+import identifier from "../../src/identifier";
 
 test("identifier", (t) => {
   t.test("identifier", (assert) => {

@@ -1,5 +1,5 @@
 import test from "tape";
-import ensureNonEmptyArray from "../src/ensure-non-empty-array";
+import ensureNonEmptyArray from "../../src/ensure-non-empty-array";
 
 test("ensureNonEmptyArray", (t) => {
   t.test("ensureNonEmptyArray", (assert) => {

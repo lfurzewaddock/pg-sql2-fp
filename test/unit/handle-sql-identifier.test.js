@@ -1,5 +1,5 @@
 import test from "tape";
-import handleSqlIdentifier from "../src/handle-sql-identifier";
+import handleSqlIdentifier from "../../src/handle-sql-identifier";
 
 test("handleSqlIdentifier", (t) => {
   t.test("handleSqlIdentifier", (assert) => {

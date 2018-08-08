@@ -1,5 +1,5 @@
 import test from "tape";
-import escapeSqlIdentifier from "../src/escape-sql-identifier";
+import escapeSqlIdentifier from "../../src/escape-sql-identifier";
 
 test("escapeSqlIdentifier", (t) => {
   t.test("escapeSqlIdentifier", (assert) => {

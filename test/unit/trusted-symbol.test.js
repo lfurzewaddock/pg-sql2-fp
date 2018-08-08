@@ -1,5 +1,5 @@
 import test from "tape";
-import trustedSymbol from "../src/trusted-symbol";
+import trustedSymbol from "../../src/trusted-symbol";
 
 test("trustedSymbol", (t) => {
   t.test("trustedSymbol", (assert) => {

@@ -1,5 +1,5 @@
 import test from "tape";
-import query from "../src/query";
+import query from "../../src/query";
 
 test("query", (t) => {
   t.test("query", (assert) => {

@@ -1,5 +1,5 @@
 import test from "tape";
-import raw from "../src/raw";
+import raw from "../../src/raw";
 
 test("raw", (t) => {
   t.test("raw", (assert) => {

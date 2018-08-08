@@ -1,5 +1,5 @@
 import test from "tape";
-import literal from "../src/literal";
+import literal from "../../src/literal";
 
 test("literal", (t) => {
   t.test("literal", (assert) => {
