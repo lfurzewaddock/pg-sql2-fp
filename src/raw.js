@@ -1,5 +1,5 @@
+import debugLog from "./debug-log";
 import trustedSymbol from "./trusted-symbol";
-import debugError from "./debug-error";
 
 function makeRawNode(text = "", symbol) {
   var trustSymbol = symbol;
@@ -8,7 +8,7 @@ function makeRawNode(text = "", symbol) {
   if (typeof symbol === "undefined" || typeof symbol !== "symbol") {
     trustSymbol = trustedSymbol();
   } else if (symbol !== trustedSymbol()) {
-    throw debugError(new Error("Symbol provided is a forgery!"));
+    throw debugLog(new Error("Symbol provided is a forgery!"), "makeRawNode");
   }
 
   if (typeof text !== "string") {

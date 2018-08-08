@@ -1,4 +1,4 @@
-import debugError from "./debug-error";
+import debugLog from "./debug-log";
 // Derived from https://github.com/brianc/node-postgres/blob/6c840aabb09f8a2d640800953f6b884b6841384c/lib/client.js#L325
 // Which was ported from PostgreSQL 9.2.4 source code in src/interfaces/libpq/fe-exec.c
 export default function escapeSqlLiteral(str) {
@@ -7,7 +7,7 @@ export default function escapeSqlLiteral(str) {
 
   // return empty string if empty string received;
   if (typeof str !== "string") {
-    throw debugError(new Error(`Expected string, received '${String(str)}'`));
+    throw debugLog(new Error(`Expected string, received '${String(str)}'`), "escapeSqlLiteral");
   }
 
   // return empty string if string with length 0 received;

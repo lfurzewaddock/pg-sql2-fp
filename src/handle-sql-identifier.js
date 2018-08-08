@@ -1,9 +1,9 @@
-import debugError from "./debug-error";
+import debugLog from "./debug-log";
 import escapeSqlIdentifier from "./escape-sql-identifier";
 
 export default function handleSqlIdentifier(names) {
   if (!Array.isArray(names) || names.length < 1) {
-    throw debugError(new Error("Expected non-empty array"));
+    throw debugLog(new Error("Expected non-empty array"), "handleSqlIdentifier");
   }
   // When we come accross a symbol in our identifier, we create a unique
   // alias for it that shouldn’t be in the users schema. This helps maintain
@@ -32,7 +32,7 @@ export default function handleSqlIdentifier(names) {
       return identifierSymbol;
     }
 
-    throw debugError(new Error(`Expected string or symbol, received '${String(name)}'`));
+    throw debugLog(new Error(`Expected string or symbol, received '${String(name)}'`), "handleSqlIdentifier");
   }).join(".");
 
   return mapResult;

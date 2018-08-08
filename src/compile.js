@@ -1,4 +1,4 @@
-import debugError from "./debug-error";
+import debugLog from "./debug-log";
 import enforceValidNode from "./enforce-valid-node";
 import handleSqlIdentifier from "./handle-sql-identifier";
 
@@ -19,14 +19,14 @@ export default function compile(sql) {
     switch (item.type) {
       case "RAW":
         if (typeof item.text !== "string") {
-          throw new Error("RAW node expected string");
+          throw debugLog(new Error("RAW node expected string"), "compile");
         }
         // If this is just raw text, we add it directly to the query text.
         sqlFragments.push(item.text);
         break;
       case "IDENTIFIER":
         if (item.names.length === 0) {
-          throw new Error("Identifier must have a name");
+          throw debugLog(new Error("Identifier must have a name"), "compile");
         }
         // If we got an identifier type, escape the strings and get a local
         // identifier for non-string identifiers.
@@ -39,7 +39,7 @@ export default function compile(sql) {
         sqlFragments.push(`$${values.length}`);
         break;
       default:
-        throw debugError(new Error("Sql item type not recognised!"));
+        throw debugLog(new Error("Sql item type not recognised!"), "compile");
     }
   }
 
