@@ -6,9 +6,12 @@ env:
   - NODE_ENV=test DEBUG=pg-sql2-fp:*
 services:
   - postgresql
+addons:
+  postgresql: "9.6"
 cache:
   directories:
     - "node_modules"
 before_script:
   - psql -c 'create database "pg-sql2-fp-ci";' -U postgres
+  - node test/integration/script/create-test-tables.js
 after_success: npm run coveralls
