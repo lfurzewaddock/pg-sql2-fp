@@ -1,6 +1,7 @@
 import { Client } from "pg";
 
 import DbClientManager from "../db/";
+import debugLog from "../../../src/debug-log";
 import sql from "../../../src";
 
 // const users = [
@@ -9,7 +10,14 @@ import sql from "../../../src";
 // ];
 
 const dbClientManager = DbClientManager(Client);
-dbClientManager.query(sql.compile(sql`drop table if exists users`).text);
+dbClientManager.query(sql.compile(sql`drop table if exists users`).text)
+  .then(result => result, (e) => {
+    debugLog(e, "test:integration:script:createTestTables", "drop table promise (inner)");
+  })
+  .catch((e) => {
+    debugLog(e, "test:integration:script:createTestTables", "drop table promise (outer)");
+  });
+
 dbClientManager.query(sql.compile(sql`
   CREATE TABLE public.users
   (
@@ -22,5 +30,18 @@ dbClientManager.query(sql.compile(sql`
       OIDS = FALSE
   )
   TABLESPACE pg_default;
-`).text);
-dbClientManager.disconnect();
+`).text)
+  .then(result => result, (e) => {
+    debugLog(e, "test:integration:script:createTestTables", "create table promise (inner)");
+  })
+  .catch((e) => {
+    debugLog(e, "test:integration:script:createTestTables", "create table promise (outer)");
+  });
+
+dbClientManager.disconnect()
+  .then(result => result, (e) => {
+    debugLog(e, "test:integration:script:createTestTables", "disconnect promise (inner)");
+  })
+  .catch((e) => {
+    debugLog(e, "test:integration:script:createTestTables", "disconnect promise (outer)");
+  });
