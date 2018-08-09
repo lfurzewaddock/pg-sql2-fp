@@ -4,10 +4,10 @@ import DbClientManager from "../db/";
 import debugLog from "../../../src/debug-log";
 import sql from "../../../src";
 
-// const users = [
-//   { username: "myUser1", password: "myPW1" },
-//   { username: "myUser2", password: "myPW2" },
-// ];
+const users = [
+  { username: "myUser1", password: "myPW1" },
+  { username: "myUser2", password: "myPW2" },
+];
 
 const dbClientManager = DbClientManager(Client);
 dbSetup(dbClientManager);
@@ -16,6 +16,7 @@ async function dbSetup(db) {
   try {
     await dropDatabase(db);
     await createDatabase(db);
+    await insertUsers(db, users);
     await disconnectDatabase(db);
   } catch (e) {
     debugLog(e, "test:integration:script:createTestTables", "dbSetup try/catch");
@@ -34,6 +35,19 @@ async function createDatabase(db) {
       password text NOT NULL
     );
   `).text);
+}
+
+async function insertUsers(db, userCollection) {
+  try {
+    await userCollection.forEach((user) => {
+      const query = sql`INSERT INTO users(username, password) VALUES(${sql.value(user.username)},${sql.value(user.password)})`;
+      const { text, values } = sql.compile(query);
+      return db.query(text, values);
+    });
+  } catch (e) {
+    debugLog(e, "test:integration:script:createTestTables", "insertUsers try/catch");
+  }
+  debugLog("test:integration:script:createTestTables", `Inserted ${userCollection.length + 1} users successfully`);
 }
 
 async function disconnectDatabase(db) {
