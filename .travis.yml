@@ -14,4 +14,7 @@ cache:
 before_script:
   - psql -c 'create database "pg-sql2-fp-ci";' -U postgres
   - node -r esm test/integration/script/create-test-tables.js
+script:
+  - npm t
+  - npm run testIntegration
 after_success: npm run coveralls
