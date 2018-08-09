@@ -38,16 +38,13 @@ async function createDatabase(db) {
 }
 
 async function insertUsers(db, userCollection) {
-  try {
-    await userCollection.forEach((user) => {
-      const query = sql`INSERT INTO users(username, password) VALUES(${sql.value(user.username)},${sql.value(user.password)})`;
-      const { text, values } = sql.compile(query);
-      return db.query(text, values);
-    });
-  } catch (e) {
-    debugLog(e, "test:integration:script:createTestTables", "insertUsers try/catch");
-  }
-  debugLog("test:integration:script:createTestTables", `Inserted ${userCollection.length + 1} users successfully`);
+  const insertQueries = userCollection.map((user) => {
+    const query = sql`INSERT INTO users(username, password) VALUES(${sql.value(user.username)},${sql.value(user.password)})`;
+    const { text, values } = sql.compile(query);
+    return db.query(text, values);
+  });
+  return Promise.all(insertQueries)
+    .then(() => debugLog("test:integration:script:insertUsers", `Inserted ${userCollection.length} users successfully`));
 }
 
 async function disconnectDatabase(db) {
