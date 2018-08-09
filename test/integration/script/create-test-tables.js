@@ -34,6 +34,27 @@ async function createDatabase(db) {
       username text NOT NULL,
       password text NOT NULL
     );
+
+    ALTER TABLE public.users OWNER TO postgres;
+
+    CREATE SEQUENCE public.users_pk_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+    ALTER TABLE public.users_pk_seq OWNER TO postgres;
+
+    ALTER SEQUENCE public.users_pk_seq OWNED BY public.users.pk;
+
+    ALTER TABLE ONLY public.users ALTER COLUMN pk SET DEFAULT nextval('public.users_pk_seq'::regclass);
+
+    ALTER TABLE ONLY public.users
+    ADD CONSTRAINT users_pkey PRIMARY KEY (pk);
+
+    GRANT ALL ON TABLE public.users TO "pg-sql2-fp-ci";
   `).text);
 }
 
