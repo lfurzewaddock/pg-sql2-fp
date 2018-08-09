@@ -25,7 +25,7 @@ dbClientManager.query(sql.compile(sql`
     password text NOT NULL
   );
 `).text)
-  .then(result => result, (e) => {
+  .then(result => debugLog("test:integration:script:createTestTables", `result: %0 ${result}`), (e) => {
     debugLog(e, "test:integration:script:createTestTables", "create table promise (inner)");
   })
   .catch((e) => {
