@@ -44,7 +44,7 @@ export default function DbClientManager(
         debugLog(err, "test:integration:db", "failed to disconnect client!");
       }
     } else {
-      debugLog("test:integration:db", "client to disconnect not found");
+      debugLog("test:integration:db", "client not found to disconnect");
     }
     return client;
   };

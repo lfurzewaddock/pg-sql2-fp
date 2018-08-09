@@ -19,17 +19,11 @@ dbClientManager.query(sql.compile(sql`drop table if exists users`).text)
   });
 
 dbClientManager.query(sql.compile(sql`
-  CREATE TABLE public.users
-  (
-      pk integer NOT NULL DEFAULT nextval('users_pk_seq'::regclass),
-      username text COLLATE pg_catalog."default" NOT NULL,
-      password text COLLATE pg_catalog."default" NOT NULL,
-      CONSTRAINT users_pkey PRIMARY KEY (pk)
-  )
-  WITH (
-      OIDS = FALSE
-  )
-  TABLESPACE pg_default;
+  CREATE TABLE public.users (
+    pk integer NOT NULL,
+    username text NOT NULL,
+    password text NOT NULL
+  );
 `).text)
   .then(result => result, (e) => {
     debugLog(e, "test:integration:script:createTestTables", "create table promise (inner)");
