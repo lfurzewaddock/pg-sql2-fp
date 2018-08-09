@@ -11,7 +11,7 @@ import sql from "../../../src";
 
 const dbClientManager = DbClientManager(Client);
 dbClientManager.query(sql.compile(sql`drop table if exists users`).text)
-  .then(result => debugLog("test:integration:script:createTestTables", ("result: %O", result)), (e) => {
+  .then(result => debugLog("test:integration:script:createTestTables", ("result: %o", result)), (e) => {
     debugLog(e, "test:integration:script:createTestTables", "drop table promise (inner)");
   })
   .catch((e) => {
@@ -25,7 +25,7 @@ dbClientManager.query(sql.compile(sql`
     password text NOT NULL
   );
 `).text)
-  .then(result => debugLog("test:integration:script:createTestTables", ("result: %O", result)), (e) => {
+  .then(result => debugLog("test:integration:script:createTestTables", ("result: %o", result)), (e) => {
     debugLog(e, "test:integration:script:createTestTables", "create table promise (inner)");
   })
   .catch((e) => {
@@ -33,7 +33,7 @@ dbClientManager.query(sql.compile(sql`
   });
 
 dbClientManager.disconnect()
-  .then(result => debugLog("test:integration:script:createTestTables", ("result: %O", result)), (e) => {
+  .then(result => debugLog("test:integration:script:createTestTables", ("result: %o", result)), (e) => {
     debugLog(e, "test:integration:script:createTestTables", "disconnect promise (inner)");
   })
   .catch((e) => {
