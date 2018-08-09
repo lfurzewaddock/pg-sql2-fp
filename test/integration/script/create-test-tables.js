@@ -10,44 +10,32 @@ import sql from "../../../src";
 // ];
 
 const dbClientManager = DbClientManager(Client);
-dbClientManager.query(sql.compile(sql`drop table if exists users`).text)
-  .then((result) => {
-    console.log("Dropped table users");
-    console.log("Result: %O: ", result);
-    debugLog("test:integration:script:createTestTables", ("result: %o", result));
-  }, (e) => {
-    debugLog(e, "test:integration:script:createTestTables", "drop table promise (inner)");
-  })
-  .catch((e) => {
-    debugLog(e, "test:integration:script:createTestTables", "drop table promise (outer)");
-  });
+dbSetup(dbClientManager);
 
-dbClientManager.query(sql.compile(sql`
-  CREATE TABLE public.users (
-    pk integer NOT NULL,
-    username text NOT NULL,
-    password text NOT NULL
-  );
-`).text)
-  .then((result) => {
-    console.log("Created table users");
-    console.log("Result: %O: ", result);
-    debugLog("test:integration:script:createTestTables", ("result: %o", result));
-  }, (e) => {
-    debugLog(e, "test:integration:script:createTestTables", "create table promise (inner)");
-  })
-  .catch((e) => {
-    debugLog(e, "test:integration:script:createTestTables", "create table promise (outer)");
-  });
+async function dbSetup(db) {
+  try {
+    await dropDatabase(db);
+    await createDatabase(db);
+    await disconnectDatabase(db);
+  } catch (e) {
+    debugLog(e, "test:integration:script:createTestTables", "dbSetup try/catch");
+  }
+}
 
-dbClientManager.disconnect()
-  .then((result) => {
-    console.log("Disconnected");
-    console.log("Result: %O: ", result);
-    debugLog("test:integration:script:createTestTables", ("result: %o", result));
-  }, (e) => {
-    debugLog(e, "test:integration:script:createTestTables", "disconnect promise (inner)");
-  })
-  .catch((e) => {
-    debugLog(e, "test:integration:script:createTestTables", "disconnect promise (outer)");
-  });
+async function dropDatabase(db) {
+  return db.query(sql.compile(sql`drop table if exists users`).text);
+}
+
+async function createDatabase(db) {
+  return db.query(sql.compile(sql`
+    CREATE TABLE public.users (
+      pk integer NOT NULL,
+      username text NOT NULL,
+      password text NOT NULL
+    );
+  `).text);
+}
+
+async function disconnectDatabase(db) {
+  return db.disconnect();
+}
