@@ -21,7 +21,7 @@ cache:
     - "node_modules"
 before_script:
   - sudo -u postgres psql -c 'CREATE DATABASE "pg-sql2-fp-ci";'
-  - sudo -u postgres psql -c 'CREATE USER "pg-sql2-fp-ci" WITH PASSWORD 'password';'
+  - sudo -u postgres psql -c 'CREATE USER "pg-sql2-fp-ci" WITH PASSWORD \'password\';'
   - sudo -u postgres psql -c 'GRANT ALL PRIVILEGES ON DATABASE "pg-sql2-fp-ci" to "pg-sql2-fp-ci";'
   - node -r esm test/integration/script/create-test-tables.js
 script:
