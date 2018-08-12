@@ -2,7 +2,7 @@ import { Client } from "pg";
 
 import DbClientManager from "../db/";
 import debugLog from "../../../src/debug-log";
-import sql from "../../../src";
+import sql from "../../../lib/pg-sql2-fp";
 
 const users = [
   { username: "myUser1", password: "myPW1" },
