@@ -1,4 +1,4 @@
-import sql from "../../../src";
+import sql from "../../../lib/pg-sql2-fp";
 
 export function readAll() {
   return sql.compile(sql`SELECT * FROM users`);
