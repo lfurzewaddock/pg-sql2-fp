@@ -38,12 +38,12 @@ async function createDatabase(db) {
     ALTER TABLE public.users OWNER TO postgres;
 
     CREATE SEQUENCE public.users_pk_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
+      AS integer
+      START WITH 1
+      INCREMENT BY 1
+      NO MINVALUE
+      NO MAXVALUE
+      CACHE 1;
 
     ALTER TABLE public.users_pk_seq OWNER TO postgres;
 
@@ -52,7 +52,9 @@ async function createDatabase(db) {
     ALTER TABLE ONLY public.users ALTER COLUMN pk SET DEFAULT nextval('public.users_pk_seq'::regclass);
 
     ALTER TABLE ONLY public.users
-    ADD CONSTRAINT users_pkey PRIMARY KEY (pk);
+      ADD CONSTRAINT users_pkey PRIMARY KEY (pk);
+
+    GRANT ALL ON TABLE public.users TO ${sql.ident(process.env.DB_USER)};
   `).text);
 }
 
