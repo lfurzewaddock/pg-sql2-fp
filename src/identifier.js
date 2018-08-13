@@ -1,7 +1,7 @@
 import trustedSymbol from "./trusted-symbol";
 import ensureNonEmptyArray from "./ensure-non-empty-array";
 
-const $trusted$ = trustedSymbol();
+const trusted$$ = trustedSymbol();
 
 function isStringOrSymbol(val) {
   return typeof val === "string" || typeof val === "symbol";
@@ -11,7 +11,7 @@ function makeIdentifierNode(names) {
   if (!Array.isArray(names) || !names.every(isStringOrSymbol)) {
     throw new Error("Invalid argument to makeIdentifierNode - expected array of strings/symbols");
   }
-  return { type: "IDENTIFIER", names, [$trusted$]: true };
+  return { type: "IDENTIFIER", names, [trusted$$]: true };
 }
 
 /**

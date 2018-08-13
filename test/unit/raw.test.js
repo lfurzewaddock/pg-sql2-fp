@@ -34,9 +34,9 @@ test("raw", (t) => {
     assert.end();
   });
   t.test("invoke raw with a string as the 1st argument and a valid symbol from /src/trusted-symbol.js as the 2nd argument", (assert) => {
-    const mock$trusted$ = Symbol.for("development");
+    const mocktrusted$$ = Symbol.for("development");
 
-    const node = raw("string", mock$trusted$);
+    const node = raw("string", mocktrusted$$);
 
     const message = "should return a SQL node (type 'RAW') with text property set to the 1st argument";
     const expected = { type: "RAW", text: "string" };
@@ -58,8 +58,8 @@ test("raw", (t) => {
     assert.end();
   });
   t.test("invoke raw with an integer as the 1st argument and a valid symbol from /src/trusted-symbol.js as the 2nd argument", (assert) => {
-    const mock$trusted$ = Symbol.for("development");
-    const node = raw(1, mock$trusted$);
+    const mocktrusted$$ = Symbol.for("development");
+    const node = raw(1, mocktrusted$$);
 
     const message = "should return a SQL node (type 'RAW') with text property set to the 1st argument converted to a string";
     const expected = { type: "RAW", text: "1" };
@@ -81,8 +81,8 @@ test("raw", (t) => {
     assert.end();
   });
   t.test("invoke raw with a boolean as the 1st argument and a valid symbol from /src/trusted-symbol.js as the 2nd argument", (assert) => {
-    const mock$trusted$ = Symbol.for("development");
-    const node = raw(true, mock$trusted$);
+    const mocktrusted$$ = Symbol.for("development");
+    const node = raw(true, mocktrusted$$);
 
     const message = "should return a SQL node (type 'RAW') with text property set to the 1st argument converted to a string";
     const expected = { type: "RAW", text: "true" };
@@ -93,23 +93,23 @@ test("raw", (t) => {
     assert.end();
   });
   t.test("invoke raw with a string as the 1st argument and a new symbol with name 'trusted' as the 2nd argument", (assert) => {
-    const mock$trusted$ = Symbol("development"); // note: did not use Symbol.for
+    const mocktrusted$$ = Symbol("development"); // note: did not use Symbol.for
 
     const message = "throws an error complaining the Symbol provided is a forgery!";
 
     assert.throws(function throwsFn() {
-      raw("string", mock$trusted$);
+      raw("string", mocktrusted$$);
     }, /(Error: Symbol provided is a forgery!)/, message);
 
     assert.end();
   });
   t.test("invoke raw with a string as the 1st argument and a valid symbol from /src/trusted-symbol.js as the 2nd argument", (assert) => {
-    const mock$trusted$ = Symbol.for("development");
+    const mocktrusted$$ = Symbol.for("development");
 
     const message = "does not throw an error complaining the Symbol provided is a forgery!";
 
     assert.doesNotThrow(function doesNotThrowFn() {
-      raw("string", mock$trusted$);
+      raw("string", mocktrusted$$);
     }, /(Error: Symbol provided is a forgery!)/, message);
 
     assert.end();
