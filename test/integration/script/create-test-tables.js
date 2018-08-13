@@ -5,6 +5,8 @@ import debugLog from "../../../src/debug-log";
 // import sql from "../../../lib";
 const sql = require("../../../lib");
 
+console.log("sql:", sql); /* eslint-disable-line no-console */
+
 const users = [
   { username: "myUser1", password: "myPW1" },
   { username: "myUser2", password: "myPW2" },
