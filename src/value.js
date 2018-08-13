@@ -1,9 +1,9 @@
 import trustedSymbol from "./trusted-symbol";
 
-const $$trusted = trustedSymbol();
+const $trusted$ = trustedSymbol();
 
 function makeValueNode(val) {
-  return { type: "VALUE", value: val, [$$trusted]: true };
+  return { type: "VALUE", value: val, [$trusted$]: true };
 }
 
 /**
