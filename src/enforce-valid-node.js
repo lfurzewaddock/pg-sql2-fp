@@ -1,7 +1,7 @@
 
 import trustedSymbol from "./trusted-symbol";
 
-var $$trusted = trustedSymbol(); /* eslint-disable-line prefer-const */
+const $$trusted = trustedSymbol();
 
 export default function enforceValidNode(node) {
   if (node !== null && typeof node === "object" && node[$$trusted] === true) {

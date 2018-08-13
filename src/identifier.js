@@ -1,7 +1,7 @@
 import trustedSymbol from "./trusted-symbol";
 import ensureNonEmptyArray from "./ensure-non-empty-array";
 
-var $$trusted = trustedSymbol(); /* eslint-disable-line prefer-const */
+const $$trusted = trustedSymbol();
 
 function isStringOrSymbol(val) {
   return typeof val === "string" || typeof val === "symbol";

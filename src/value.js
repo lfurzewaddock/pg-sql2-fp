@@ -1,6 +1,6 @@
 import trustedSymbol from "./trusted-symbol";
 
-var $$trusted = trustedSymbol(); /* eslint-disable-line prefer-const */
+const $$trusted = trustedSymbol();
 
 function makeValueNode(val) {
   return { type: "VALUE", value: val, [$$trusted]: true };
