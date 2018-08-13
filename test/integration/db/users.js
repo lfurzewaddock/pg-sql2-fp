@@ -1,5 +1,5 @@
 // import sql from "../../../lib";
-const sql = require("../../../lib").default;
+const sql = require("../../../lib");
 
 export function readAll() {
   return sql.compile(sql`SELECT * FROM users`);
