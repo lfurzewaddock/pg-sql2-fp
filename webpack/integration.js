@@ -2,6 +2,7 @@
 
 const CleanWebpackPlugin = require("clean-webpack-plugin");
 const path = require("path");
+const nodeExternals = require("webpack-node-externals");
 
 module.exports = {
   entry: {
@@ -33,6 +34,8 @@ module.exports = {
     ],
   },
   devtool: "inline-source-map",
+  target: "node",
+  externals: [nodeExternals()],
   plugins: [
     new CleanWebpackPlugin(["lib"], {
       root: path.resolve(__dirname, "../"),
@@ -41,6 +44,7 @@ module.exports = {
   output: {
     filename: "[name].js",
     path: path.resolve(__dirname, "../lib"),
+    libraryTarget: "commonjs-module",
   },
 };
 
