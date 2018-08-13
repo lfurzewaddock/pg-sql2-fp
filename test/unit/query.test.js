@@ -45,8 +45,8 @@ test("query", (t) => {
     assert.end();
   });
   t.test("invoke query with a template literal containing SQL and a value SQL item", (assert) => {
-    const mocktrusted$$ = Symbol.for("development");
-    const mockValue = { type: "VALUE", value: 1, [mocktrusted$$]: true };
+    const mock$$trusted = Symbol.for("development");
+    const mockValue = { type: "VALUE", value: 1, [mock$$trusted]: true };
     const node = query`select ${mockValue}::integer`;
 
     const message = "should return array of 3 x SQL nodes, 'RAW', 'VALUE', 'RAW'";
