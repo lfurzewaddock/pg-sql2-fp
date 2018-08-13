@@ -6,6 +6,7 @@
   "scripts": {
     "testBuildBrowser": "webpack --config webpack/test.browser",
     "testBuildNode": "webpack --config webpack/test.node",
+    "testBuildIntegration": "webpack --config webpack/integration",
     "testNodeBundle": "npm run testBuildNode && node_modules/.bin/tape dist/jsdom.environment.js dist/app.bundle.js | node_modules/.bin/tap-spec",
     "test": "NODE_ENV=development DEBUG=pg-sql2-fp:* node_modules/.bin/tape --require esm --require dotenv/config test/jsdom.environment.js test/unit{,**/}/*.test.js",
     "testIntegration": "DEBUG=pg-sql2-fp:* node_modules/.bin/tape --require esm --require dotenv/config test/integration{,**/}/*.test.js",
