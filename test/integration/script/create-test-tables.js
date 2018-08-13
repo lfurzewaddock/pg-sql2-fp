@@ -2,7 +2,8 @@ import { Client } from "pg";
 
 import DbClientManager from "../db/";
 import debugLog from "../../../src/debug-log";
-import sql from "../../../lib";
+// import sql from "../../../lib";
+const sql = require("../../../lib").default;
 
 const users = [
   { username: "myUser1", password: "myPW1" },
