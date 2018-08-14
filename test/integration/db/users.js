@@ -12,3 +12,7 @@ export function readOne(id) {
 export function readOneByUsernamePasswordCombo(username, password) {
   return sql.compile(sql`SELECT * FROM users WHERE username = ${sql.literal(username)} AND password = ${sql.literal(password)}`);
 }
+
+export function readOneByUsernamePasswordComboParentheses(username, password) {
+  return sql.compile(sql`SELECT * FROM users WHERE ((username = ${sql.literal(username)}) AND (password = ${sql.literal(password)}))`);
+}
