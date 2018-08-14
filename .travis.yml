@@ -20,6 +20,7 @@ cache:
   directories:
     - "node_modules"
 before_install:
+  - mkdir -p $PGDATA
   - initdb --no-locale -D $PGDATA
 before_script:
   - npm run testBuildIntegration
