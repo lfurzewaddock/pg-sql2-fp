@@ -156,7 +156,7 @@ async function insertProducts(db, productCollection) {
         ${sql.value(product.description)},
         ${sql.value(product.published)},
         ${sql.value(product.publishedDate)},
-        ${sql.value(product.publishedTime)},
+        ${sql.value(product.publishedTime)}
       )`;
     const { text, values } = sql.compile(query);
     return db.query(text, values);
