@@ -20,7 +20,7 @@ cache:
   directories:
     - "node_modules"
 before_install:
-  - initdb --no-locale
+  - initdb --no-locale -D /var/lib/postgresql/10/main
 before_script:
   - npm run testBuildIntegration
   - sudo -u postgres psql -c 'CREATE DATABASE "pg-sql2-fp-ci";'
