@@ -3,6 +3,7 @@ import tape from "tape";
 import _test from "tape-promise";
 
 import DbClientManager from "./db/";
+import debugLog from "../../src/debug-log";
 import * as users from "./db/users";
 
 const test = _test(tape);
@@ -33,6 +34,8 @@ test("sql", (t) => {
     const fixtures = setup();
 
     const { text, values } = users.readAll();
+    debugLog(null, "test:integration:usersTest:text", text);
+    debugLog(null, "test:integration:usersTest:values", values);
 
     assert.equal(text, "SELECT * FROM users", "should generate expected SQL");
     assert.deepEqual(values, [], "should have no values");
@@ -48,18 +51,25 @@ test("sql", (t) => {
       username: "myUser2",
       password: "myPW2",
     }];
-    const actual = await fixtures.dbClientManager.query(text, values);
+    try {
+      const actual = await fixtures.dbClientManager.query(text, values);
 
-    assert.equal(actual.rowCount, 2, "should find 2 x records");
-    assert.deepEqual(actual.rows, expected, message);
+      assert.equal(actual.rowCount, 2, "should find 2 x records");
+      assert.deepEqual(actual.rows, expected, message);
+    } catch (e) {
+      debugLog(e, "test:integration:usersTest");
+    } finally {
+      teardown(fixtures);
+    }
 
-    teardown(fixtures);
     assert.end();
   });
   t.test("Select 1 user from table user by id", async (assert) => {
     const fixtures = setup();
 
     const { text, values } = users.readOne(1);
+    debugLog(null, "test:integration:usersTest:text", text);
+    debugLog(null, "test:integration:usersTest:values", values);
 
     assert.equal(text, "SELECT * FROM users WHERE pk = 1", "should generate expected SQL");
     assert.deepEqual(values, [], "should have no values");
@@ -70,12 +80,88 @@ test("sql", (t) => {
       username: "myUser1",
       password: "myPW1",
     }];
-    const actual = await fixtures.dbClientManager.query(text, values);
+    try {
+      const actual = await fixtures.dbClientManager.query(text, values);
 
-    assert.equal(actual.rowCount, 1, "should find 1 x records");
-    assert.deepEqual(actual.rows, expected, message);
+      assert.equal(actual.rowCount, 1, "should find 1 x records");
+      assert.deepEqual(actual.rows, expected, message);
+    } catch (e) {
+      debugLog(e, "test:integration:usersTest");
+    } finally {
+      teardown(fixtures);
+    }
 
-    teardown(fixtures);
+    assert.end();
+  });
+  t.test("sqli: Select 1 user from table user by id (OR 1=1)", async (assert) => {
+    const fixtures = setup();
+
+    const { text, values } = users.readOne("1 OR 1=1");
+    debugLog(null, "test:integration:usersTest:text", text);
+    debugLog(null, "test:integration:usersTest:values", values);
+
+    assert.equal(text, "SELECT * FROM users WHERE pk = $1", "should generate expected SQL");
+    assert.deepEqual(values, ["1 OR 1=1"], "should have single string");
+
+    const message = "should throw an error";
+
+    try {
+      await fixtures.dbClientManager.query(text, values);
+    } catch (e) {
+      assert.ok(debugLog(e, "test:integration:usersTest"), message);
+      assert.end();
+    } finally {
+      teardown(fixtures);
+    }
+  });
+  t.test("sqli: Select 1 user from table user by id (UNION ALL SELECT * FROM users)", async (assert) => {
+    const fixtures = setup();
+
+    const { text, values } = users.readOne("1 UNION ALL SELECT * FROM users");
+    debugLog(null, "test:integration:usersTest:text", text);
+    debugLog(null, "test:integration:usersTest:values", values);
+
+    assert.equal(text, "SELECT * FROM users WHERE pk = $1", "should generate expected SQL");
+    assert.deepEqual(values, ["1 UNION ALL SELECT * FROM users"], "should have single string");
+
+    const message = "should throw an error";
+
+    try {
+      await fixtures.dbClientManager.query(text, values);
+    } catch (e) {
+      assert.ok(debugLog(e, "test:integration:usersTest"), message);
+      assert.end();
+    } finally {
+      teardown(fixtures);
+    }
+  });
+  t.test("Select 1 user from table user by username and password combination", async (assert) => {
+    const fixtures = setup();
+
+    const { text, values } = users.readOneByUsernamePasswordCombo("myUser2", "myPW2");
+    debugLog(null, "test:integration:usersTest:text", text);
+    debugLog(null, "test:integration:usersTest:values", values);
+
+    assert.equal(text, "SELECT * FROM users WHERE username = 'myUser2' AND password = 'myPW2'", "should generate expected SQL");
+    assert.deepEqual(values, [], "should have no values");
+
+    const message = "should return array of 1 table row objects";
+    const expected = [{
+      pk: 2,
+      username: "myUser2",
+      password: "myPW2",
+    }];
+    try {
+      const actual = await fixtures.dbClientManager.query(text, values);
+
+      assert.equal(actual.rowCount, 1, "should find 1 x records");
+      assert.deepEqual(actual.rows, expected, message);
+    } catch (e) {
+      debugLog(e, "test:integration:usersTest");
+    } finally {
+      teardown(fixtures);
+    }
+
     assert.end();
   });
   t.end();
