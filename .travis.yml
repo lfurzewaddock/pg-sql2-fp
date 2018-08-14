@@ -19,6 +19,8 @@ addons:
 cache:
   directories:
     - "node_modules"
+before_install:
+  - initdb --no-locale
 before_script:
   - npm run testBuildIntegration
   - sudo -u postgres psql -c 'CREATE DATABASE "pg-sql2-fp-ci";'
