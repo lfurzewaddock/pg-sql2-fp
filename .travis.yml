@@ -20,7 +20,7 @@ cache:
   directories:
     - "node_modules"
 before_install:
-  - echo '$PGDATA:' $PGDATA
+  - echo 'PGDATA:' PGDATA
   - initdb --no-locale -D /var/lib/postgresql/10/main
 before_script:
   - npm run testBuildIntegration
