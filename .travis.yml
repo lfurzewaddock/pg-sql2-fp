@@ -22,7 +22,7 @@ cache:
 before_install:
   - export PGDATA=/home/travis/build/lfurzewaddock/pg-sql2-fp/pg_data
   - mkdir -p $PGDATA
-  - initdb -locale=C -D $PGDATA
+  - initdb --locale=C -D $PGDATA
 before_script:
   - npm run testBuildIntegration
   - sudo -u postgres psql -c 'CREATE DATABASE "pg-sql2-fp-ci";'
