@@ -13,7 +13,7 @@ const users = [
 const products = [
   {
     name: "Bike",
-    price: "200",
+    price: "20000",
     category: "bikes",
     active: 1,
     description: null,
@@ -23,7 +23,7 @@ const products = [
   },
   {
     name: "Shoe",
-    price: "45.99",
+    price: "4599",
     category: "shoes",
     active: 0,
     description: null,
@@ -33,7 +33,7 @@ const products = [
   },
   {
     name: "Bike 2",
-    price: "150.49",
+    price: "15049",
     category: "bikes",
     active: 1,
     description: null,
@@ -104,7 +104,7 @@ async function createTableProducts(db) {
     CREATE TABLE public.products (
       pk integer NOT NULL,
       name text NOT NULL,
-      price money NOT NULL,
+      price integer NOT NULL,
       category text NOT NULL,
       active smallint NOT NULL,
       description text,

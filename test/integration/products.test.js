@@ -44,7 +44,7 @@ test("sql", (t) => {
     const expected = [{
       pk: 1,
       name: "Bike",
-      price: "£200.00",
+      price: "20000",
       category: "bikes",
       active: 1,
       description: null,
@@ -55,7 +55,7 @@ test("sql", (t) => {
     {
       pk: 2,
       name: "Shoe",
-      price: "£45.99",
+      price: "4599",
       category: "shoes",
       active: 0,
       description: null,
@@ -66,7 +66,7 @@ test("sql", (t) => {
     {
       pk: 3,
       name: "Bike 2",
-      price: "£150.49",
+      price: "15049",
       category: "bikes",
       active: 1,
       description: null,
@@ -101,7 +101,7 @@ test("sql", (t) => {
     const expected = [{
       pk: 2,
       name: "Shoe",
-      price: "£45.99",
+      price: "4599",
       category: "shoes",
       active: 0,
       description: null,
