@@ -23,6 +23,8 @@ export default function DbClientManager(
         client = new Client(clientConfig);
         await client.connect();
         saveClient(client);
+        const timezone = await client.query("SELECT current_setting('TIMEZONE');");
+        debugLog(null, "test:integration:db:timezone", timezone.rows[0].current_setting);
         debugLog("test:integration:db", "client successfully connected");
       } catch (err) {
         debugLog(err, "test:integration:db", "failed to connect client!");
