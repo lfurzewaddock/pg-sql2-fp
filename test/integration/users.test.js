@@ -236,6 +236,33 @@ test("sql", (t) => {
 
     assert.end();
   });
+  t.test("sqli: use username followed by comment delimiters/double dash (myUser2'--) - Select from table user by username and password combination", async (assert) => {
+    const fixtures = setup();
+
+    const username = "myUser2'--";
+    const password = "ignored";
+    const { text, values } = users.readOneByUsernamePasswordCombo(username, password);
+    debugLog(null, "test:integration:usersTest:text", text);
+    debugLog(null, "test:integration:usersTest:values", values);
+
+    assert.equal(text, "SELECT * FROM users WHERE username = $1 AND password = 'ignored'", "should generate expected SQL");
+    assert.deepEqual(values, ["myUser2'--"], "should have 1 x string values");
+
+    const message = "should return empty array";
+    const expected = [];
+    try {
+      const actual = await fixtures.dbClientManager.query(text, values);
+
+      assert.equal(actual.rowCount, 0, "should find 0 x records");
+      assert.deepEqual(actual.rows, expected, message);
+    } catch (e) {
+      debugLog(e, "test:integration:usersTest");
+    } finally {
+      teardown(fixtures);
+    }
+
+    assert.end();
+  });
   t.test("sqli: use start comment delimiters/slash star (/*) - Select from table user by username and password combination", async (assert) => {
     const fixtures = setup();
 
@@ -290,7 +317,7 @@ test("sql", (t) => {
 
     assert.end();
   });
-  t.test("sqli: use OR always true (1 OR 1=1) - Select 1 user from table user by id", async (assert) => {
+  t.test("sqli: use Tautology (1 OR 1=1) - Select 1 user from table user by id", async (assert) => {
     const fixtures = setup();
 
     const { text, values } = users.readOne("1 OR 1=1");
@@ -311,7 +338,7 @@ test("sql", (t) => {
       teardown(fixtures);
     }
   });
-  t.test("sqli: use OR always true (1' or '1' = '1) - Select 1 user from table user by username and password combination", async (assert) => {
+  t.test("sqli: use Tautology (1' or '1' = '1) - Select 1 user from table user by username and password combination", async (assert) => {
     const fixtures = setup();
 
     const username = "1' or '1' = '1";
@@ -322,6 +349,60 @@ test("sql", (t) => {
 
     assert.equal(text, "SELECT * FROM users WHERE username = $1 AND password = $2", "should generate expected SQL");
     assert.deepEqual(values, ["1' or '1' = '1", "1' or '1' = '1"], "should have 2 x string values");
+
+    const message = "should return empty array";
+    const expected = [];
+    try {
+      const actual = await fixtures.dbClientManager.query(text, values);
+
+      assert.equal(actual.rowCount, 0, "should find 0 x records");
+      assert.deepEqual(actual.rows, expected, message);
+    } catch (e) {
+      debugLog(e, "test:integration:usersTest");
+    } finally {
+      teardown(fixtures);
+    }
+
+    assert.end();
+  });
+  t.test("sqli: use Tautology (1' or 1 = 1--) - Select 1 user from table user by username and password combination", async (assert) => {
+    const fixtures = setup();
+
+    const username = "1' or 1 = 1--";
+    const password = "1' or 1 = 1--";
+    const { text, values } = users.readOneByUsernamePasswordCombo(username, password);
+    debugLog(null, "test:integration:usersTest:text", text);
+    debugLog(null, "test:integration:usersTest:values", values);
+
+    assert.equal(text, "SELECT * FROM users WHERE username = $1 AND password = $2", "should generate expected SQL");
+    assert.deepEqual(values, ["1' or 1 = 1--", "1' or 1 = 1--"], "should have 2 x string values");
+
+    const message = "should return empty array";
+    const expected = [];
+    try {
+      const actual = await fixtures.dbClientManager.query(text, values);
+
+      assert.equal(actual.rowCount, 0, "should find 0 x records");
+      assert.deepEqual(actual.rows, expected, message);
+    } catch (e) {
+      debugLog(e, "test:integration:usersTest");
+    } finally {
+      teardown(fixtures);
+    }
+
+    assert.end();
+  });
+  t.test("sqli: use Tautology (1' and 1 = 1--) - Select 1 user from table user by username and password combination", async (assert) => {
+    const fixtures = setup();
+
+    const username = "1' and 1 = 1--";
+    const password = "1' and 1 = 1--";
+    const { text, values } = users.readOneByUsernamePasswordCombo(username, password);
+    debugLog(null, "test:integration:usersTest:text", text);
+    debugLog(null, "test:integration:usersTest:values", values);
+
+    assert.equal(text, "SELECT * FROM users WHERE username = $1 AND password = $2", "should generate expected SQL");
+    assert.deepEqual(values, ["1' and 1 = 1--", "1' and 1 = 1--"], "should have 2 x string values");
 
     const message = "should return empty array";
     const expected = [];
