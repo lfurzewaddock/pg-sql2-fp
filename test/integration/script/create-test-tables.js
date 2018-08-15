@@ -109,8 +109,8 @@ async function createTableProducts(db) {
       active smallint NOT NULL,
       description text,
       published boolean NOT NULL,
-      published_date date NOT NULL,
-      published_time timestamp(6) without time zone NOT NULL
+      published_date timestamp(6) with time zone NOT NULL,
+      published_time timestamp(6) with time zone NOT NULL
   );
   
   ALTER TABLE public.products OWNER TO "pg-sql2-fp-ci";

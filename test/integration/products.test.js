@@ -49,8 +49,8 @@ test("sql", (t) => {
       active: 1,
       description: null,
       published: true,
-      published_date: new Date("Thu Jan 01 2009 00:00:00 GMT+0000 (STD)"),
-      published_time: new Date("Thu Jan 01 2009 06:30:00 GMT+0000 (STD)"),
+      published_date: new Date("Thu Jan 01 2009 00:00:00 GMT+0000 (UTC)"),
+      published_time: new Date("Thu Jan 01 2009 06:30:00 GMT+0000 (UTC)"),
     },
     {
       pk: 2,
@@ -60,8 +60,8 @@ test("sql", (t) => {
       active: 0,
       description: null,
       published: true,
-      published_date: new Date("Tue Aug 14 2018 00:00:00 GMT+0100 (DST)"),
-      published_time: new Date("Tue Aug 14 2018 14:54:00 GMT+0100 (DST)"),
+      published_date: new Date("Tue Aug 14 2018 00:00:00 GMT+0000 (UTC)"),
+      published_time: new Date("Tue Aug 14 2018 14:54:00 GMT+0000 (UTC)"),
     },
     {
       pk: 3,
@@ -71,8 +71,8 @@ test("sql", (t) => {
       active: 1,
       description: null,
       published: false,
-      published_date: new Date("Sun Aug 12 2018 00:00:00 GMT+0100 (DST)"),
-      published_time: new Date("Sun Aug 12 2018 12:00:00 GMT+0100 (DST)"),
+      published_date: new Date("Sun Aug 12 2018 00:00:00 GMT+0000 (UTC)"),
+      published_time: new Date("Sun Aug 12 2018 12:00:00 GMT+0000 (UTC)"),
     }];
     try {
       const actual = await fixtures.dbClientManager.query(text, values);
@@ -106,8 +106,8 @@ test("sql", (t) => {
       active: 0,
       description: null,
       published: true,
-      published_date: new Date("Tue Aug 14 2018 00:00:00 GMT+0100 (DST)"),
-      published_time: new Date("Tue Aug 14 2018 14:54:00 GMT+0100 (DST)"),
+      published_date: new Date("Tue Aug 14 2018 00:00:00 GMT+0000 (UTC)"),
+      published_time: new Date("Tue Aug 14 2018 14:54:00 GMT+0000 (UTC)"),
     }];
     try {
       const actual = await fixtures.dbClientManager.query(text, values);
