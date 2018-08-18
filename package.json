@@ -27,7 +27,12 @@
     "SQL",
     "pg",
     "postgreSQL",
-    "node"
+    "node",
+    "ES6",
+    "JS",
+    "Template strings",
+    "Template literals",
+    "Tagged template literals"
   ],
   "author": "Leo Furze-Waddock",
   "license": "MIT",
