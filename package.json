@@ -34,7 +34,7 @@
     "Template literals",
     "Tagged template literals"
   ],
-  "author": "Leo Furze-Waddock",
+  "author": "Leo Furze-Waddock <leo@furze-waddock.com>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/lfurzewaddock/pg-sql2-fp/issues"
