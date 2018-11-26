@@ -6,10 +6,7 @@ coverage
 .nyc_output
 
 # MS VS Code editor config/options
-# .vscode
-
-# Babel output directory
-lib/*
+.vscode
 
 # Apple MAC hidden files
 .DS_Store
@@ -19,6 +16,21 @@ lib/*
 
 # environment variables and secure credentials
 .env
+.env.example
 
 # private notes
 notes.txt
+
+# source files
+src/*
+
+# files supporting dev environment
+bin/*
+test/*
+webpack/*
+.eslintignore
+.eslintrc.json
+.prettierignore
+.prettierrc.json
+travis.yml
+testem.node.json

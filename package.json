@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "pg-sql2-fp",
   "main": "lib/index.js",
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "testBuildNode": "webpack --config webpack/test.node",
     "testBuildIntegration": "webpack --config webpack/integration",
@@ -17,7 +20,7 @@
     "coverage": "NODE_ENV=development node_modules/nyc/bin/nyc.js --require esm npm test",
     "coverReport": "npm run coverage && node_modules/nyc/bin/nyc.js report --reporter=html && ./bin/opn-cli coverage/index.html -- chrome",
     "coveralls": "npm run coverage && node_modules/nyc/bin/nyc.js report --reporter=text-lcov | node_modules/.bin/coveralls",
-    "prepack": "mkdir -p ./lib && npx babel-cli src --out-dir ./lib"
+    "prepack": "mkdir -p ./lib && babel ./src --out-dir ./lib"
   },
   "repository": {
     "type": "git",
@@ -41,6 +44,10 @@
   },
   "homepage": "https://github.com/lfurzewaddock/pg-sql2-fp#readme",
   "devDependencies": {
+    "@babel/cli": "^7.1.5",
+    "@babel/core": "^7.1.6",
+    "@babel/plugin-transform-modules-commonjs": "^7.1.0",
+    "@babel/preset-env": "^7.1.6",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.4",
     "babel-plugin-add-module-exports": "^0.2.1",
