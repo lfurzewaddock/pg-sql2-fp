@@ -1,6 +1,6 @@
 {
   "name": "pg-sql2-fp",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "pg-sql2-fp",
   "main": "lib/index.js",
   "scripts": {
