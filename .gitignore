@@ -5,9 +5,6 @@ node_modules
 coverage
 .nyc_output
 
-# Webpack compiled bundle directory
-dist
-
 # MS VS Code editor config/options
 # .vscode
 
@@ -19,3 +16,6 @@ dist
 
 # environment variables and secure credentials
 .env
+
+# private notes
+notes.txt
