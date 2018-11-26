@@ -9,7 +9,7 @@ coverage
 # .vscode
 
 # Babel output directory
-lib/*
+lib
 
 # Apple MAC hidden files
 .DS_Store
