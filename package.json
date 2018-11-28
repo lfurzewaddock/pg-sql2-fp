@@ -1,6 +1,6 @@
 {
   "name": "pg-sql2-fp",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Write parameterised SQL queries for PostgreSQL safely and flexibly with ES6/2015+ template literals.",
   "main": "lib/index.js",
   "publishConfig": {
