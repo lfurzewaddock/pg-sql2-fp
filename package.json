@@ -1,7 +1,7 @@
 {
   "name": "pg-sql2-fp",
   "version": "1.0.1",
-  "description": "pg-sql2-fp",
+  "description": "Write parameterised SQL queries for PostgreSQL safely and flexibly with ES6/2015+ template literals.",
   "main": "lib/index.js",
   "publishConfig": {
     "access": "public"
@@ -33,9 +33,10 @@
     "node",
     "ES6",
     "JS",
-    "Template strings",
-    "Template literals",
-    "Tagged template literals"
+    "template strings",
+    "template literals",
+    "tagged template literals",
+    "parameterised SQL queries"
   ],
   "author": "Leo Furze-Waddock <leo@furze-waddock.com>",
   "license": "MIT",
